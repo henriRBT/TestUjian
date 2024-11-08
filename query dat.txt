@@ -1,0 +1,8 @@
+select b.mbrg_kemasan, b.kd_satuan, SUM(b.jumlah) from training_permohonan a
+join training_permohonan_d b on a.no_pmh = b.no_pmh
+group  by b.mbrg_kemasan, b.kd_satuan
+
+select a.nm_pbm , string_agg( b.mbrg_nama, ',') as NAMA, SUM(b.jumlah)  from training_permohonan a
+join training_permohonan_d b on a.no_pmh = b.no_pmh
+where a.last_update_date notnull and a.status =1
+group by  a.nm_pbm , a.tanggal, a.status, a.last_update_date
