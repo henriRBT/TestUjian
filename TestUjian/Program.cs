@@ -1,17 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using TestUjian.Data;
 using TestUjian.Models;
+using TestUjian.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddScoped<IUnitOfWork, UnitOfwork>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddDbContext<DBKoneksi>(options =>
-	options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 var app = builder.Build();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

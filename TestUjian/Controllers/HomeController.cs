@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TestUjian.Models;
+using TestUjian.Repository;
 
 
 namespace TestUjian.Controllers
@@ -9,7 +10,7 @@ namespace TestUjian.Controllers
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
-		private readonly IUnitOfWork _unitOfWork;
+		public IUnitOfWork _unitOfWork;
 
 		public HomeController(IUnitOfWork unitOfWork)
 		{
@@ -21,7 +22,12 @@ namespace TestUjian.Controllers
 			return View();
 		}
 
-		public IActionResult Privacy()
+        public IActionResult Index1()
+        {
+            return View();
+        }
+
+        public IActionResult Privacy()
 		{
 			return View();
 		}
@@ -36,8 +42,14 @@ namespace TestUjian.Controllers
 		[HttpGet]
 		public IActionResult GetAll()
 		{
-			List<Product> objProductList = _unitOfWork.Product.GetAll(includePropertis: "Product").ToList();
-			return Json(new { data = objProductList });
+			var permohonanData = _unitOfWork.Product.GetPermohonanData();
+			return Json(new { data = permohonanData });
+		}
+		[HttpGet]
+		public IActionResult Get()
+		{
+			var permohonanData = _unitOfWork.Pemohonan.GetData();
+			return Json(new { data = permohonanData });
 		}
 
 		#endregion

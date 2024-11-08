@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace TestUjian.Models
 {
-	public class Product
+	public class Permohonan
 	{
 		[Key]
 		public string no_pmh { get; set; }
-		public string mbrg_kemasan { get; set; }
-		public string kd_satuan { get; set; }
+		public string nm_pbm { get; set; }
+		public string NAMA { get; set; }
 		public float jumlah { get; set; }
 	}
 }
